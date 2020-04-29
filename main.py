@@ -128,7 +128,6 @@ def main():
                 victory_message_surface = None
 
 
-
             if event.type == events.LEFT_SIDE_WINS_TYPE:
                 print('LEFT SIDE WINS')
                 victory_message_surface = victory_font.render('LEFT SIDE WINS!',

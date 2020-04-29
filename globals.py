@@ -11,17 +11,19 @@ def init():
     beginning of __main__() (in the main file) to access
     these variables."""
 
-    #
     #Declare constants
     global BG_COLOR
     global MIDLINE_COLOR_TUPLE
     global SCREEN_WIDTH
     global SCREEN_HEIGHT
     global FRAME_RATE
-    global screen
     global POINTS_TO_WIN
     global PAUSE_ON_GOAL_MS
     global PAUSE_ON_WIN_MS
+
+    # Declare non-constants
+    global screen
+    global game_mode
 
     # Declare global game objects
     global ball
@@ -34,7 +36,10 @@ def init():
     SCREEN_WIDTH = 1280
     SCREEN_HEIGHT = 960
     FRAME_RATE = 60
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     POINTS_TO_WIN = 3
     PAUSE_ON_GOAL_MS = 1000
     PAUSE_ON_WIN_MS = 3000
+
+    # Initialize non-constants
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_mode = 'pvp'  # == ('single_player' | 'pvp')
