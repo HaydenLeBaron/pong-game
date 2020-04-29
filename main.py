@@ -35,6 +35,11 @@ def main():
     globals.bot = AIPaddle((240, 0, 0), 'left', globals.ball)
 
 
+    # Values to keep track of
+    # -----------------------------------
+
+    player_score = 0
+    bot_score = 0
 
 
     # Game loop
@@ -43,6 +48,7 @@ def main():
 
     gamefont = pygame.font.SysFont('Helvetica', 48, bold=True, italic=False)
     textsurface = gamefont.render('Hello world', True, (0,0,255))
+    othersurface = gamefont.render('Hola mundo', True, (255,0,0))
 
     while True:
 
@@ -76,9 +82,10 @@ def main():
             # Handle goal score events
             if event.type == events.LEFT_GOAL_SCORED_IN_TYPE:
                 print('LEFT GOAL SCORED IN')
+                player_score += 1
             if event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
                 print('RIGHT GOAL SCORED IN')
-
+                bot_score += 1
 
            
 
@@ -99,6 +106,7 @@ def main():
 
         # Draw score  # TODO: BOOKMARK NOTE: I should be using events
         globals.screen.blit(textsurface, (200, 400))
+        globals.screen.blit(othersurface, (200, 400))
 
         # Updating the window
         pygame.display.flip()
