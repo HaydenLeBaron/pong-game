@@ -19,11 +19,12 @@ def main():
 
     globals.init()
     events.init()
-   
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption('Pong')
 
+    gamefont = pygame.font.SysFont('Helvetica',  # Init text drawer
+                                   48, bold=True, italic=False)
 
     # Game Objects
     # -----------------------------------
@@ -35,20 +36,21 @@ def main():
     globals.bot = AIPaddle((240, 0, 0), 'left', globals.ball)
 
 
-    # Values to keep track of
+    # Init score
     # -----------------------------------
 
     player_score = 0
     bot_score = 0
+    player_score_surface = gamefont.render(str(player_score),
+                                           True, globals.player.color_tuple)
+    bot_score_surface = gamefont.render(str(bot_score),
+                                        True, globals.bot.color_tuple)
 
 
     # Game loop
     # -----------------------------------
 
 
-    gamefont = pygame.font.SysFont('Helvetica', 48, bold=True, italic=False)
-    textsurface = gamefont.render('Hello world', True, (0,0,255))
-    othersurface = gamefont.render('Hola mundo', True, (255,0,0))
 
     while True:
 
@@ -73,10 +75,9 @@ def main():
             #===========================================
             # NOTE: TEST EVENT EXAMPLE
             # Handle test events
-            if event.type == events.TEST_EVENT_TYPE:
-                print('TEST_EVENT_PROCESSED')
+            #if event.type == events.TEST_EVENT_TYPE:
+            #    print('TEST_EVENT_PROCESSED')
             #===========================================
-
 
 
             # Handle goal score events
@@ -104,9 +105,9 @@ def main():
         pygame.draw.ellipse(globals.screen, globals.ball.color_tuple, globals.ball.rect)
 
 
-        # Draw score  # TODO: BOOKMARK NOTE: I should be using events
-        globals.screen.blit(textsurface, (200, 400))
-        globals.screen.blit(othersurface, (200, 400))
+        # Draw score
+        globals.screen.blit(player_score_surface, (globals.SCREEN_WIDTH -80, 20))
+        globals.screen.blit(bot_score_surface, (60, 20))
 
         # Updating the window
         pygame.display.flip()
