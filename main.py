@@ -61,7 +61,7 @@ def main():
                 if event.key == pygame.K_UP:
                     globals.player.y_speed += 7
 
-            #============================================
+            #===========================================
             # NOTE: TEST EVENT EXAMPLE
             EVENT_TYPE1 = pygame.USEREVENT + 1
             test_event = pygame.event.Event(EVENT_TYPE1)
