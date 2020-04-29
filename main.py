@@ -16,8 +16,9 @@ from ball import Ball
 def main():
     """The starting point for this program."""
 
+    # ==========================================================
     # General setup
-    # -----------------------------------
+    # ==========================================================
 
     globals.init()
     events.init()
@@ -30,9 +31,9 @@ def main():
     victory_font = pygame.font.SysFont('Helvetica',  # Init text drawer
                                        100, bold=True, italic=True)
 
-
-    # Game Objects
-    # -----------------------------------
+    # ==========================================================
+    # Init game objects
+    # ==========================================================
 
     globals.ball = Ball(30, pygame.Color('yellow'),
                 7 * random.choice((1, -1)),
@@ -40,16 +41,18 @@ def main():
     globals.player = PlayerPaddle((0, 0, 240), 'right')
     globals.bot = AIPaddle((240, 0, 0), 'left', globals.ball)
 
-    # Game Flags
-    # -----------------------------------
+   
+    # ==========================================================
+    # Init game flags
+    # ==========================================================
 
     game_on = True
     was_point_scored = False
 
 
-
+    # ==========================================================
     # Init score
-    # -----------------------------------
+    # ==========================================================
 
     player_score = 0
     bot_score = 0
@@ -60,18 +63,23 @@ def main():
     victory_message_surface = None
 
 
+    # ==========================================================
     # Game loop
-    # -----------------------------------
+    # ==========================================================
 
     while game_on:
 
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Event processing loop
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         for event in pygame.event.get():
 
-            #=================================
+            ##################################
             # DEBUG OUTPUT
             #print('event: ', event)
             #print('type: ', event.type)
-            #=================================
+            ##################################
 
             if player_score >= globals.POINTS_TO_WIN:
                 pygame.event.post(events.right_side_wins)
@@ -79,6 +87,8 @@ def main():
                 pygame.event.post(events.left_side_wins)
 
             # Handle player input events
+            # ---------------------------------------------
+
             if event.type == pygame.QUIT:  # Exit the game
                 pygame.quit()
                 sys.exit()
@@ -93,14 +103,9 @@ def main():
                 if event.key == pygame.K_UP:
                     globals.player.y_speed += 7
 
-            #===========================================
-            # NOTE: TEST EVENT EXAMPLE
-            # Handle test events
-            #if event.type == events.TEST_EVENT_TYPE:
-            #    print('TEST_EVENT_PROCESSED')
-            #===========================================
-
             # Handle goal score events
+            # ---------------------------------------------
+
             if event.type == events.LEFT_GOAL_SCORED_IN_TYPE or \
                     event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
                 globals.player.reset_position('right')
@@ -137,12 +142,26 @@ def main():
                                                        globals.player.color_tuple)
                 game_on = False  # The game loop will not run again
 
+
+
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Update game models
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         # Shift game object locations
+        # ---------------------------------------------
         globals.ball.move_to_next_frame()
         globals.player.move_to_next_frame()
         globals.bot.move_to_next_frame()
 
+
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Draw
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         # Draw game objects
+        # ---------------------------------------------
+
         globals.screen.fill(globals.BG_COLOR)
         pygame.draw.rect(globals.screen,
                          globals.player.color_tuple,
@@ -158,7 +177,10 @@ def main():
                             globals.ball.color_tuple,
                             globals.ball.rect)
 
+
         # Draw score
+        # ---------------------------------------------
+
         player_score_surface = score_font.render(str(player_score),
                                            True, globals.player.color_tuple)
         bot_score_surface = score_font.render(str(bot_score),
@@ -171,16 +193,27 @@ def main():
                                 (globals.SCREEN_WIDTH/2 - 400,
                                  globals.SCREEN_HEIGHT/2))
 
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Refresh display
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         # Update the window
         pygame.display.flip()
         clock.tick(globals.FRAME_RATE)
+
+
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Post-refresh
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         # Pause if point was scored
         if was_point_scored:
             pygame.time.delay(globals.PAUSE_ON_GOAL_MS)  # Pause game for 1000 ms
             was_point_scored = False
 
+    # ==========================================================
+    # Exiting
+    # ==========================================================
 
     pygame.time.delay(globals.PAUSE_ON_WIN_MS)
     pygame.quit()

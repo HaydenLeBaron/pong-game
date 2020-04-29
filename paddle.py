@@ -7,6 +7,7 @@ import globals
 import pygame
 
 class _Paddle:
+
     def __init__(self, color_tuple, side):
         """Initializes a new pong _Paddle
         with a given color tuple (0-255, 0-255, 0255)
@@ -26,6 +27,7 @@ class _Paddle:
             self.rect = pygame.Rect(10,
                                     globals.SCREEN_HEIGHT/2 - self.height/2,
                                     self.width, self.height)
+
 
     def reset_position(self, side):
         """Resets the position of this _Paddle to the middle of its

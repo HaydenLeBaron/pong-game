@@ -15,6 +15,7 @@ class AIPaddle(_Paddle):
         self.y_speed = 7
         self.target_ball = target_ball
 
+
     def move_to_next_frame(self):
         """Calculates the position of this AIPaddle as it
         will be drawn next frame."""
