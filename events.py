@@ -1,15 +1,21 @@
 #
 # events.py
-#
+
+"""This class contains the declarations and initializations for
+pygame events and event types. """
 
 import pygame
 
 
 def init():
+    """The events.init() function must
+    be called at the beginning of __main__() (in the main file) to
+    access the events."""
+
     # Declare event types
     global TEST_EVENT_TYPE
-    global LEFT_GOAL_SCORED_IN_TYPE  # Fires when ball touches left goal (right's point)
-    global RIGHT_GOAL_SCORED_IN_TYPE # Fires when ball touches right goal (left's point)
+    global LEFT_GOAL_SCORED_IN_TYPE
+    global RIGHT_GOAL_SCORED_IN_TYPE
     global RIGHT_SIDE_WINS_TYPE
     global LEFT_SIDE_WINS_TYPE
 

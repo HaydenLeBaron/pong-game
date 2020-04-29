@@ -1,6 +1,8 @@
 #
 # main.py
-#
+
+"""This file contains the starting point for this pong game,
+as well as some helper methods."""
 
 import pygame, sys, random
 import globals
@@ -12,7 +14,7 @@ from ball import Ball
 
 
 def main():
-
+    """The starting point for this program."""
 
     # General setup
     # -----------------------------------
@@ -28,6 +30,7 @@ def main():
                                    48, bold=True, italic=False)
     victory_font = pygame.font.SysFont('Helvetica',  # Init text drawer
                                        100, bold=True, italic=True)
+
 
     # Game Objects
     # -----------------------------------
@@ -53,8 +56,6 @@ def main():
 
     # Game loop
     # -----------------------------------
-
-
 
     while game_on:
 
@@ -118,8 +119,6 @@ def main():
                                                        True,
                                                        globals.player.color_tuple)
 
-
-
         # Shift game object locations
         globals.ball.move_to_next_frame()
         globals.player.move_to_next_frame()
@@ -141,7 +140,6 @@ def main():
                             globals.ball.color_tuple,
                             globals.ball.rect)
 
-
         # Draw score
         player_score_surface = score_font.render(str(player_score),
                                            True, globals.player.color_tuple)
@@ -156,8 +154,7 @@ def main():
                                  globals.SCREEN_HEIGHT/2))
             game_on = False  # The game loop will not run again
 
-
-        # Updating the window
+        # Update the window
         pygame.display.flip()
         clock.tick(globals.FRAME_RATE)
 

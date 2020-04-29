@@ -1,7 +1,8 @@
 #
 # ball.py
-#
-#
+
+"""This file contains a class for a ball."""
+
 
 import globals
 import events
@@ -9,8 +10,10 @@ import pygame
 import random
 
 class Ball:
+    """Represents a ball."""
 
     def __init__(self, diameter=30, color_tuple=(30, 30, 0), x_speed=7, y_speed=7):
+        """Initializes a new ball with a given diameter, color, and speed."""
 
         self.diameter = diameter
         self.color_tuple = color_tuple
@@ -22,6 +25,8 @@ class Ball:
 
 
     def move_to_next_frame(self):
+        """Calculates the position of the ball as it
+        will be drawn next frame."""
 
         # Move ball
         self.rect.x += self.x_speed
@@ -45,6 +50,7 @@ class Ball:
             self.x_speed *= -1
 
     def restart(self):
+        """Resets the ball to the middle and sends it in a new direction."""
 
         self.rect.center = (globals.SCREEN_WIDTH/2, globals.SCREEN_HEIGHT/2)  # Move ball to center
         self.x_speed *= random.choice((1, -1))

@@ -1,14 +1,17 @@
 #
 # paddle.py
-#
+
+"""This file contains a class representing a pong paddle."""
 
 import globals
 import pygame
 
 class _Paddle:
     def __init__(self, color_tuple, side):
-        # side -- a string (either 'right' or 'left'), indicating what side the paddle is on (default: right)
-
+        """Initializes a new pong _Paddle
+        with a given color tuple (0-255, 0-255, 0255)
+        and a string $side ('right' | 'left') indicating which side
+        of the court the paddle is on."""
 
         self.width = 20
         self.height = 150
@@ -25,6 +28,8 @@ class _Paddle:
                                     self.width, self.height)
 
     def reset_position(self, side):
+        """Resets the position of this _Paddle to the middle of its
+        correct $side ('right' | 'left')."""
         if side == 'right':
             self.rect.center = (globals.SCREEN_WIDTH - 20,
                                 globals.SCREEN_HEIGHT/2 - self.height/2)  # Move ball to center

@@ -1,13 +1,18 @@
-#
 # globals.py
-#
+
+"""This class contains the declarations and initializations for
+global variables and constants."""
 
 import pygame
 
 
 def init():
+    """The globals.init() function must be called at the
+    beginning of __main__() (in the main file) to access
+    these variables."""
 
-    # Declare constants
+    #
+    #Declare constants
     global BG_COLOR
     global MIDLINE_COLOR_TUPLE
     global SCREEN_WIDTH
