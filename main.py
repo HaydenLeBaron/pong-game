@@ -37,12 +37,12 @@ def main():
     globals.ball = Ball(30, pygame.Color('yellow'),
                 globals.DEF_BALL_SPEED * random.choice((1, -1)),
                 globals.DEF_BALL_SPEED * random.choice((1, -1)))
-    globals.player1 = PlayerPaddle((0, 0, 240), 'right')
+    globals.player1 = PlayerPaddle(globals.P1_COLOR_TUPLE, 'right')
 
     if globals.game_mode == 'pvp':
-        globals.player2 = PlayerPaddle((240, 0, 0), 'left')
+        globals.player2 = PlayerPaddle(globals.P2_COLOR_TUPLE, 'left')
     else:  # if globals.game_mode == 'single_player'
-        globals.player2 = AIPaddle((240, 0, 0), 'left', globals.ball)
+        globals.player2 = AIPaddle(globals.P2_COLOR_TUPLE, 'left', globals.ball)
 
    
     # ==========================================================
