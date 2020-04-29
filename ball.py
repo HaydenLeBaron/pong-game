@@ -4,6 +4,7 @@
 #
 
 import globals
+import events
 import pygame
 import random
 
@@ -29,6 +30,7 @@ class Ball:
         # Bounce balls on wall collision
         if self.rect.top <= 0 or self.rect.bottom >= globals.SCREEN_HEIGHT:
            self.y_speed *= -1
+           pygame.event.post(events.test_event)
 
 
         # If the ball hits the goal, reset ball and paddle positions

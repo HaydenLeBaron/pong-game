@@ -4,6 +4,7 @@
 
 import pygame, sys, random
 import globals
+import events
 from paddle import _Paddle
 from playerpaddle import PlayerPaddle
 from aipaddle import AIPaddle
@@ -17,6 +18,8 @@ def main():
     # -----------------------------------
 
     globals.init()
+    events.init()
+   
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption('Pong')
@@ -63,16 +66,9 @@ def main():
 
             #===========================================
             # NOTE: TEST EVENT EXAMPLE
-            EVENT_TYPE1 = pygame.USEREVENT + 1
-            test_event = pygame.event.Event(EVENT_TYPE1)
-            pygame.event.post(test_event)
             # Handle test events
-            if event.type == EVENT_TYPE1:
-                print('YAY')
-                pygame.draw.ellipse(globals.screen,
-                                    (20, 30, 50),
-                                    pygame.Rect(random.randint(100, 500),
-                                         random.randint(100, 500) , 30, 40))
+            if event.type == events.TEST_EVENT_TYPE:
+                print('TEST_EVENT_PROCESSED')
 
             #============================================
             # Handle goal score events
