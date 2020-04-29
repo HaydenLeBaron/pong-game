@@ -3,7 +3,6 @@
 #
 
 import pygame, sys, random
-
 import globals
 from paddle import _Paddle
 from playerpaddle import PlayerPaddle
@@ -13,26 +12,19 @@ from ball import Ball
 
 def main():
 
-    globals.init()
 
     # General setup
     # -----------------------------------
 
+    globals.init()
     pygame.init()
     clock = pygame.time.Clock()
-
-    # Setting up the main window
-    # -----------------------------------
-
-
     pygame.display.set_caption('Pong')
 
 
     # Game Objects
     # -----------------------------------
 
-    # NOTE: Origin (0,0) is in top left corner of screen
-    #
     globals.ball = Ball(30, pygame.Color('yellow'),
                 7 * random.choice((1, -1)),
                 7 * random.choice((1, -1)))

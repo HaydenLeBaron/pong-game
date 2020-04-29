@@ -19,7 +19,14 @@ class _Paddle:
             self.rect = pygame.Rect(globals.SCREEN_WIDTH - 20,
                                     globals.SCREEN_HEIGHT/2 - self.height/2,
                                     self.width, self.height)
-        else:
+        else:  # If side == 'left':
             self.rect = pygame.Rect(10,
                                     globals.SCREEN_HEIGHT/2 - self.height/2,
                                     self.width, self.height)
+
+    def reset_position(self, side):
+        if side == 'right':
+            self.rect.center = (globals.SCREEN_WIDTH - 20,
+                                globals.SCREEN_HEIGHT/2 - self.height/2)  # Move ball to center
+        else:  # If side == 'left':
+            self.rect.center = (10, globals.SCREEN_HEIGHT/2 - self.height/2)  # Move ball to center
