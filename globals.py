@@ -20,6 +20,8 @@ def init():
     global POINTS_TO_WIN
     global PAUSE_ON_GOAL_MS
     global PAUSE_ON_WIN_MS
+    global DEF_BALL_SPEED
+    global DEF_PADDLE_SPEED
 
     # Declare non-constants
     global screen
@@ -36,10 +38,12 @@ def init():
     SCREEN_WIDTH = 1280
     SCREEN_HEIGHT = 960
     FRAME_RATE = 60
-    POINTS_TO_WIN = 3
+    POINTS_TO_WIN = 4
     PAUSE_ON_GOAL_MS = 1000
     PAUSE_ON_WIN_MS = 3000
+    DEF_BALL_SPEED = 10
+    DEF_PADDLE_SPEED = 10
 
     # Initialize non-constants
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    game_mode = 'pvp'  # == ('single_player' | 'pvp')
+    game_mode = 'single_player'  # == ('single_player' | 'pvp')

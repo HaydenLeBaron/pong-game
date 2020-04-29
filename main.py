@@ -35,10 +35,14 @@ def main():
     # ==========================================================
 
     globals.ball = Ball(30, pygame.Color('yellow'),
-                7 * random.choice((1, -1)),
-                7 * random.choice((1, -1)))
+                globals.DEF_BALL_SPEED * random.choice((1, -1)),
+                globals.DEF_BALL_SPEED * random.choice((1, -1)))
     globals.player1 = PlayerPaddle((0, 0, 240), 'right')
-    globals.player2 = AIPaddle((240, 0, 0), 'left', globals.ball)
+
+    if globals.game_mode == 'pvp':
+        globals.player2 = PlayerPaddle((240, 0, 0), 'left')
+    else:  # if globals.game_mode == 'single_player'
+        globals.player2 = AIPaddle((240, 0, 0), 'left', globals.ball)
 
    
     # ==========================================================
@@ -80,27 +84,47 @@ def main():
             #print('type: ', event.type)
             ##################################
 
+            # Handle victory events
+            # ---------------------------------------------
             if player1_score >= globals.POINTS_TO_WIN:
                 pygame.event.post(events.right_side_wins)
             elif player2_score >= globals.POINTS_TO_WIN:
                 pygame.event.post(events.left_side_wins)
 
-            # Handle player input events
-            # ---------------------------------------------
 
+            # Handle quit event
+            # ---------------------------------------------
             if event.type == pygame.QUIT:  # Exit the game
                 pygame.quit()
                 sys.exit()
+
+
+            # Handle player1 input events
+            # ---------------------------------------------
             if event.type == pygame.KEYDOWN:  # Keydown controls
                 if event.key == pygame.K_DOWN:
-                    globals.player1.y_speed += 7
+                    globals.player1.y_speed += globals.DEF_PADDLE_SPEED
                 if event.key == pygame.K_UP:
-                    globals.player1.y_speed -= 7
+                    globals.player1.y_speed -= globals.DEF_PADDLE_SPEED
             if event.type == pygame.KEYUP:    # Keyup controls
                 if event.key == pygame.K_DOWN:
-                    globals.player1.y_speed -= 7
+                    globals.player1.y_speed -= globals.DEF_PADDLE_SPEED
                 if event.key == pygame.K_UP:
-                    globals.player1.y_speed += 7
+                    globals.player1.y_speed += globals.DEF_PADDLE_SPEED
+
+
+            # Handle player2 input events
+            # ---------------------------------------------
+            if event.type == pygame.KEYDOWN:  # Keydown controls
+                if event.key == pygame.K_s:
+                    globals.player2.y_speed += 7
+                if event.key == pygame.K_w:
+                    globals.player2.y_speed -= 7
+            if event.type == pygame.KEYUP:    # Keyup controls
+                if event.key == pygame.K_s:
+                    globals.player2.y_speed -= 7
+                if event.key == pygame.K_w:
+                    globals.player2.y_speed += 7
 
             # Handle goal score events
             # ---------------------------------------------

@@ -12,7 +12,7 @@ class AIPaddle(_Paddle):
         """Initializes a new AIPaddle"""
 
         super().__init__(color_tuple, side)
-        self.y_speed = 7
+        self.y_speed = globals.DEF_PADDLE_SPEED
         self.target_ball = target_ball
 
 

@@ -12,7 +12,7 @@ import random
 class Ball:
     """Represents a ball."""
 
-    def __init__(self, diameter=30, color_tuple=(30, 30, 0), x_speed=7, y_speed=7):
+    def __init__(self, diameter, color_tuple, x_speed, y_speed):
         """Initializes a new ball with a given diameter, color, and speed."""
 
         self.diameter = diameter
