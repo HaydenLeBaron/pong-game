@@ -40,7 +40,7 @@ class Ball:
 
     def move_to_next_frame(self):
 
-        global SCREEN_WIDTH, SCREEN_HEIGHT
+        global SCREEN_WIDTH, SCREEN_HEIGHT, player, bot
 
         # Move ball
         self.rect.x += self.x_speed
@@ -128,77 +128,77 @@ class AIPaddle(Paddle):
             self.rect.bottom = SCREEN_HEIGHT
 
 
+ball = None
+player = None
+bot = None
+def main():
+    global ball, player, bot
+    # General setup
+    # -----------------------------------
 
-# Drawing helpers
-# -----------------------------------
+    pygame.init()
+    clock = pygame.time.Clock()
 
-
-
-
-
-# General setup
-# -----------------------------------
-
-pygame.init()
-clock = pygame.time.Clock()
-
-# Setting up the main window
-# -----------------------------------
+    # Setting up the main window
+    # -----------------------------------
 
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Pong')
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption('Pong')
 
 
-# Game Objects
-# -----------------------------------
+    # Game Objects
+    # -----------------------------------
 
-# NOTE: origin (0, 0) is in top left corner
+    # NOTE: origin (0, 0) is in top left corner
 
-ball = Ball(30, pygame.Color('yellow'),
-            7 * random.choice((1, -1)),
-            7 * random.choice((1, -1)))
+    ball = Ball(30, pygame.Color('yellow'),
+                7 * random.choice((1, -1)),
+                7 * random.choice((1, -1)))
 
-player = PlayerPaddle((0, 0, 240), 'right')
-bot = AIPaddle((240, 0, 0), 'left', ball)
+    player = PlayerPaddle((0, 0, 240), 'right')
+    bot = AIPaddle((240, 0, 0), 'left', ball)
 
 
 
-# Game loop
-# -----------------------------------
+    # Game loop
+    # -----------------------------------
 
-while True:
-    # Handle player input
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                player.y_speed += 7
-            if event.key == pygame.K_UP:
-                player.y_speed -= 7
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_DOWN:
-                player.y_speed -= 7
-            if event.key == pygame.K_UP:
-                player.y_speed += 7
+    while True:
+        # Handle player input
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_DOWN:
+                    player.y_speed += 7
+                if event.key == pygame.K_UP:
+                    player.y_speed -= 7
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_DOWN:
+                    player.y_speed -= 7
+                if event.key == pygame.K_UP:
+                    player.y_speed += 7
 
 
-    # Shift game object locations
-    ball.move_to_next_frame()
-    player.move_to_next_frame()
-    bot.move_to_next_frame()
+        # Shift game object locations
+        ball.move_to_next_frame()
+        player.move_to_next_frame()
+        bot.move_to_next_frame()
 
-    # Draw game objects
-    screen.fill(BG_COLOR)
-    pygame.draw.rect(screen, player.color_tuple, player)
-    pygame.draw.rect(screen, bot.color_tuple, bot)
-    pygame.draw.aaline(screen, MIDLINE_COLOR_TUPLE,
-                       (SCREEN_WIDTH/2, 0),
-                       (SCREEN_WIDTH/2, SCREEN_HEIGHT))
-    pygame.draw.ellipse(screen, ball.color_tuple, ball.rect)
+        # Draw game objects
+        screen.fill(BG_COLOR)
+        pygame.draw.rect(screen, player.color_tuple, player)
+        pygame.draw.rect(screen, bot.color_tuple, bot)
+        pygame.draw.aaline(screen, MIDLINE_COLOR_TUPLE,
+                        (SCREEN_WIDTH/2, 0),
+                        (SCREEN_WIDTH/2, SCREEN_HEIGHT))
+        pygame.draw.ellipse(screen, ball.color_tuple, ball.rect)
 
-    # Updating the window
-    pygame.display.flip()
-    clock.tick(FRAME_RATE)
+        # Updating the window
+        pygame.display.flip()
+        clock.tick(FRAME_RATE)
+
+if __name__ == '__main__':
+    main()
