@@ -20,6 +20,8 @@ def init():
     global FRAME_RATE
     global screen
     global POINTS_TO_WIN
+    global PAUSE_ON_GOAL_MS
+    global PAUSE_ON_WIN_MS
 
     # Declare global game objects
     global ball
@@ -34,3 +36,5 @@ def init():
     FRAME_RATE = 60
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     POINTS_TO_WIN = 3
+    PAUSE_ON_GOAL_MS = 1000
+    PAUSE_ON_WIN_MS = 3000

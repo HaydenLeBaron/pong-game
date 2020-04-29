@@ -22,7 +22,6 @@ def main():
     globals.init()
     events.init()
     pygame.init()
-    game_on = True
     clock = pygame.time.Clock()
     pygame.display.set_caption('Pong')
 
@@ -40,6 +39,13 @@ def main():
                 7 * random.choice((1, -1)))
     globals.player = PlayerPaddle((0, 0, 240), 'right')
     globals.bot = AIPaddle((240, 0, 0), 'left', globals.ball)
+
+    # Game Flags
+    # -----------------------------------
+
+    game_on = True
+    was_point_scored = False
+
 
 
     # Init score
@@ -100,24 +106,36 @@ def main():
                 globals.player.reset_position('right')
                 globals.bot.reset_position('left')
                 globals.ball.restart()
-                pygame.time.delay(1000)  # Pause game for 1000 ms
+                was_point_scored = True
+                if event.type == events.LEFT_GOAL_SCORED_IN_TYPE:
+                    print('LEFT GOAL SCORED IN')
+                    player_score += 1
+                    victory_message_surface = victory_font.render('right\'s point!',
+                                                                True,
+                                                                globals.player.color_tuple)
+                elif event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
+                    print('RIGHT GOAL SCORED IN')
+                    bot_score += 1
+                    victory_message_surface = victory_font.render('left\'s point!',
+                                                                True,
+                                                                globals.bot.color_tuple)
+            else:
+                victory_message_surface = None
 
-            if event.type == events.LEFT_GOAL_SCORED_IN_TYPE:
-                print('LEFT GOAL SCORED IN')
-                player_score += 1
-            if event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
-                print('RIGHT GOAL SCORED IN')
-                bot_score += 1
+
+
             if event.type == events.LEFT_SIDE_WINS_TYPE:
                 print('LEFT SIDE WINS')
                 victory_message_surface = victory_font.render('LEFT SIDE WINS!',
                                                        True,
                                                        globals.bot.color_tuple)
+                game_on = False  # The game loop will not run again
             if event.type == events.RIGHT_SIDE_WINS_TYPE:
                 print('RIGHT SIDE WINS')
                 victory_message_surface = victory_font.render('RIGHT SIDE WINS!',
                                                        True,
                                                        globals.player.color_tuple)
+                game_on = False  # The game loop will not run again
 
         # Shift game object locations
         globals.ball.move_to_next_frame()
@@ -152,14 +170,19 @@ def main():
             globals.screen.blit(victory_message_surface,
                                 (globals.SCREEN_WIDTH/2 - 400,
                                  globals.SCREEN_HEIGHT/2))
-            game_on = False  # The game loop will not run again
+
 
         # Update the window
         pygame.display.flip()
         clock.tick(globals.FRAME_RATE)
 
+        # Pause if point was scored
+        if was_point_scored:
+            pygame.time.delay(globals.PAUSE_ON_GOAL_MS)  # Pause game for 1000 ms
+            was_point_scored = False
 
-    pygame.time.delay(3000)
+
+    pygame.time.delay(globals.PAUSE_ON_WIN_MS)
     pygame.quit()
 
 
