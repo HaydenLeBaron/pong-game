@@ -38,7 +38,7 @@ def init():
     SCREEN_WIDTH = 1280
     SCREEN_HEIGHT = 960
     FRAME_RATE = 60
-    POINTS_TO_WIN = 4
+    POINTS_TO_WIN = 5
     PAUSE_ON_GOAL_MS = 1000
     PAUSE_ON_WIN_MS = 3000
     DEF_BALL_SPEED = 10
@@ -46,4 +46,4 @@ def init():
 
     # Initialize non-constants
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    game_mode = 'single_player'  # == ('single_player' | 'pvp')
+    game_mode = 'pvp'  # == ('single_player' | 'pvp')

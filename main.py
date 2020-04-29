@@ -113,18 +113,20 @@ def main():
                     globals.player1.y_speed += globals.DEF_PADDLE_SPEED
 
 
-            # Handle player2 input events
+            # Handle player2 input events (if in a multiplayer mode)
             # ---------------------------------------------
-            if event.type == pygame.KEYDOWN:  # Keydown controls
-                if event.key == pygame.K_s:
-                    globals.player2.y_speed += 7
-                if event.key == pygame.K_w:
-                    globals.player2.y_speed -= 7
-            if event.type == pygame.KEYUP:    # Keyup controls
-                if event.key == pygame.K_s:
-                    globals.player2.y_speed -= 7
-                if event.key == pygame.K_w:
-                    globals.player2.y_speed += 7
+
+            if globals.game_mode == 'pvp':
+                if event.type == pygame.KEYDOWN:  # Keydown controls
+                    if event.key == pygame.K_s:
+                        globals.player2.y_speed += globals.DEF_PADDLE_SPEED
+                    if event.key == pygame.K_w:
+                        globals.player2.y_speed -= globals.DEF_PADDLE_SPEED
+                if event.type == pygame.KEYUP:    # Keyup controls
+                    if event.key == pygame.K_s:
+                        globals.player2.y_speed -= globals.DEF_PADDLE_SPEED
+                    if event.key == pygame.K_w:
+                        globals.player2.y_speed += globals.DEF_PADDLE_SPEED
 
             # Handle goal score events
             # ---------------------------------------------
