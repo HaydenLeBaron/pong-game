@@ -10,16 +10,18 @@ class PlayerPaddle(_Paddle):
     """A class representing a player-controlled Paddle.
     A PlayerPaddle is a _Paddle."""
 
+
     def __init__(self, color_tuple, side):
         """Initializes a new PlayerPaddle."""
 
         super().__init__(color_tuple, side)
 
+
     def move_to_next_frame(self):
         """Calculates the position of the PlayerPaddle as it
         will be drawn next frame."""
 
-        globals.player.rect.y += globals.player.y_speed  # Move player
+        self.rect.y += self.y_speed  # Move player
 
         # Don't let player move off screen
         if self.rect.top <= 0:

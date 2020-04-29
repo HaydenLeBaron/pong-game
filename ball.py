@@ -46,7 +46,7 @@ class Ball:
             pygame.event.post(events.right_goal_scored_in)
 
         # Bounce balls on paddle collision
-        if self.rect.colliderect(globals.player) or self.rect.colliderect(globals.bot):
+        if self.rect.colliderect(globals.player1) or self.rect.colliderect(globals.player2):
             self.x_speed *= -1
 
     def restart(self):

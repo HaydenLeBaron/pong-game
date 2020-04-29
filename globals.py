@@ -27,8 +27,8 @@ def init():
 
     # Declare global game objects
     global ball
-    global player
-    global bot
+    global player1
+    global player2
 
     # Initialize constants
     BG_COLOR = pygame.Color('black')

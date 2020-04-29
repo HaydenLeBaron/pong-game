@@ -1,5 +1,4 @@
-#
-# main.py
+
 
 """This file contains the starting point for this pong game,
 as well as some helper methods."""
@@ -38,8 +37,8 @@ def main():
     globals.ball = Ball(30, pygame.Color('yellow'),
                 7 * random.choice((1, -1)),
                 7 * random.choice((1, -1)))
-    globals.player = PlayerPaddle((0, 0, 240), 'right')
-    globals.bot = AIPaddle((240, 0, 0), 'left', globals.ball)
+    globals.player1 = PlayerPaddle((0, 0, 240), 'right')
+    globals.player2 = AIPaddle((240, 0, 0), 'left', globals.ball)
 
    
     # ==========================================================
@@ -54,12 +53,12 @@ def main():
     # Init score
     # ==========================================================
 
-    player_score = 0
-    bot_score = 0
-    player_score_surface = score_font.render(str(player_score),
-                                           True, globals.player.color_tuple)
-    bot_score_surface = score_font.render(str(bot_score),
-                                        True, globals.bot.color_tuple)
+    player1_score = 0
+    player2_score = 0
+    player1_score_surface = score_font.render(str(player1_score),
+                                           True, globals.player1.color_tuple)
+    player2_score_surface = score_font.render(str(player2_score),
+                                        True, globals.player2.color_tuple)
     victory_message_surface = None
 
 
@@ -81,9 +80,9 @@ def main():
             #print('type: ', event.type)
             ##################################
 
-            if player_score >= globals.POINTS_TO_WIN:
+            if player1_score >= globals.POINTS_TO_WIN:
                 pygame.event.post(events.right_side_wins)
-            elif bot_score >= globals.POINTS_TO_WIN:
+            elif player2_score >= globals.POINTS_TO_WIN:
                 pygame.event.post(events.left_side_wins)
 
             # Handle player input events
@@ -94,36 +93,36 @@ def main():
                 sys.exit()
             if event.type == pygame.KEYDOWN:  # Keydown controls
                 if event.key == pygame.K_DOWN:
-                    globals.player.y_speed += 7
+                    globals.player1.y_speed += 7
                 if event.key == pygame.K_UP:
-                    globals.player.y_speed -= 7
+                    globals.player1.y_speed -= 7
             if event.type == pygame.KEYUP:    # Keyup controls
                 if event.key == pygame.K_DOWN:
-                    globals.player.y_speed -= 7
+                    globals.player1.y_speed -= 7
                 if event.key == pygame.K_UP:
-                    globals.player.y_speed += 7
+                    globals.player1.y_speed += 7
 
             # Handle goal score events
             # ---------------------------------------------
 
             if event.type == events.LEFT_GOAL_SCORED_IN_TYPE or \
                     event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
-                globals.player.reset_position('right')
-                globals.bot.reset_position('left')
+                globals.player1.reset_position('right')
+                globals.player2.reset_position('left')
                 globals.ball.restart()
                 was_point_scored = True
                 if event.type == events.LEFT_GOAL_SCORED_IN_TYPE:
                     print('LEFT GOAL SCORED IN')
-                    player_score += 1
+                    player1_score += 1
                     victory_message_surface = victory_font.render('right\'s point!',
                                                                 True,
-                                                                globals.player.color_tuple)
+                                                                globals.player1.color_tuple)
                 elif event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
                     print('RIGHT GOAL SCORED IN')
-                    bot_score += 1
+                    player2_score += 1
                     victory_message_surface = victory_font.render('left\'s point!',
                                                                 True,
-                                                                globals.bot.color_tuple)
+                                                                globals.player2.color_tuple)
             else:
                 victory_message_surface = None
 
@@ -132,13 +131,13 @@ def main():
                 print('LEFT SIDE WINS')
                 victory_message_surface = victory_font.render('LEFT SIDE WINS!',
                                                        True,
-                                                       globals.bot.color_tuple)
+                                                       globals.player2.color_tuple)
                 game_on = False  # The game loop will not run again
             if event.type == events.RIGHT_SIDE_WINS_TYPE:
                 print('RIGHT SIDE WINS')
                 victory_message_surface = victory_font.render('RIGHT SIDE WINS!',
                                                        True,
-                                                       globals.player.color_tuple)
+                                                       globals.player1.color_tuple)
                 game_on = False  # The game loop will not run again
 
 
@@ -150,8 +149,8 @@ def main():
         # Shift game object locations
         # ---------------------------------------------
         globals.ball.move_to_next_frame()
-        globals.player.move_to_next_frame()
-        globals.bot.move_to_next_frame()
+        globals.player1.move_to_next_frame()
+        globals.player2.move_to_next_frame()
 
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -163,11 +162,11 @@ def main():
 
         globals.screen.fill(globals.BG_COLOR)
         pygame.draw.rect(globals.screen,
-                         globals.player.color_tuple,
-                         globals.player)
+                         globals.player1.color_tuple,
+                         globals.player1)
         pygame.draw.rect(globals.screen,
-                         globals.bot.color_tuple,
-                         globals.bot)
+                         globals.player2.color_tuple,
+                         globals.player2)
         pygame.draw.aaline(globals.screen,
                            globals.MIDLINE_COLOR_TUPLE,
                         (globals.SCREEN_WIDTH/2, 0),
@@ -180,12 +179,12 @@ def main():
         # Draw score
         # ---------------------------------------------
 
-        player_score_surface = score_font.render(str(player_score),
-                                           True, globals.player.color_tuple)
-        bot_score_surface = score_font.render(str(bot_score),
-                                        True, globals.bot.color_tuple)
-        globals.screen.blit(player_score_surface, (globals.SCREEN_WIDTH -80, 20))
-        globals.screen.blit(bot_score_surface, (60, 20))
+        player1_score_surface = score_font.render(str(player1_score),
+                                           True, globals.player1.color_tuple)
+        player2_score_surface = score_font.render(str(player2_score),
+                                        True, globals.player2.color_tuple)
+        globals.screen.blit(player1_score_surface, (globals.SCREEN_WIDTH -80, 20))
+        globals.screen.blit(player2_score_surface, (60, 20))
 
         if victory_message_surface is not None:
             globals.screen.blit(victory_message_surface,
