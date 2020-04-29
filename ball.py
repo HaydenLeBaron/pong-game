@@ -40,15 +40,6 @@ class Ball:
         if self.rect.right >= globals.SCREEN_WIDTH:
             pygame.event.post(events.right_goal_scored_in)
 
-
-        # If the ball hits the goal, reset ball and paddle positions
-        if self.rect.left <= 0 or self.rect.right >= globals.SCREEN_WIDTH:
-            globals.player.reset_position('right')
-            globals.bot.reset_position('left')
-            self.restart()
-            pygame.time.delay(1000)  # Pause game for 1000 ms
-
-
         # Bounce balls on paddle collision
         if self.rect.colliderect(globals.player) or self.rect.colliderect(globals.bot):
             self.x_speed *= -1

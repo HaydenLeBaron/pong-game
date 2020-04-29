@@ -81,12 +81,21 @@ def main():
 
 
             # Handle goal score events
+            if event.type == events.LEFT_GOAL_SCORED_IN_TYPE or \
+                    event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
+                globals.player.reset_position('right')
+                globals.bot.reset_position('left')
+                globals.ball.restart()
+                pygame.time.delay(1000)  # Pause game for 1000 ms
+
             if event.type == events.LEFT_GOAL_SCORED_IN_TYPE:
                 print('LEFT GOAL SCORED IN')
                 player_score += 1
+
             if event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
                 print('RIGHT GOAL SCORED IN')
                 bot_score += 1
+
 
            
 
@@ -106,6 +115,10 @@ def main():
 
 
         # Draw score
+        player_score_surface = gamefont.render(str(player_score),
+                                           True, globals.player.color_tuple)
+        bot_score_surface = gamefont.render(str(bot_score),
+                                        True, globals.bot.color_tuple)
         globals.screen.blit(player_score_surface, (globals.SCREEN_WIDTH -80, 20))
         globals.screen.blit(bot_score_surface, (60, 20))
 
