@@ -1,0 +1,15 @@
+*  To-do List
+** Features to add
+*** DONE implement base game
+*** DONE Add score text
+*** DONE Add victory conditions
+*** TODO Add same-machine multiplayer
+*** WAIT Add mode-select menu screen [/]
+**** WAIT Quick single player (default settings)
+**** WAIT Quick local multiplayer (default settings)
+**** WAIT Custom single player (against bot)
+***** Customize settings before start
+**** WAIT Local Multiplayer (WASD vs ARROWS)
+** House keeping / Misc
+*** TODO Refactor main method to separate concerns and use helper functions. Make cleaner.
+*** WAIT Package into a pip package

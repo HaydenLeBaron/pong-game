@@ -5,6 +5,16 @@
 This is a simple pong game that I made to practice python and learn
 pygame.
 
+## How to Run
+
+Run the following in the command line to start the game:
+
+``` sh
+cd pong-game
+python3 -m main
+```
+
+-
 ## Credits
 
 Author: Hayden LeBaron
