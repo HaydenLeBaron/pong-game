@@ -69,9 +69,17 @@ def main():
             # Handle test events
             if event.type == events.TEST_EVENT_TYPE:
                 print('TEST_EVENT_PROCESSED')
+            #===========================================
 
-            #============================================
+
+
             # Handle goal score events
+            if event.type == events.LEFT_GOAL_SCORED_IN_TYPE:
+                print('LEFT GOAL SCORED IN')
+            if event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
+                print('RIGHT GOAL SCORED IN')
+
+
            
 
         # Shift game object locations

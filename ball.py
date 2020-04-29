@@ -30,7 +30,15 @@ class Ball:
         # Bounce balls on wall collision
         if self.rect.top <= 0 or self.rect.bottom >= globals.SCREEN_HEIGHT:
            self.y_speed *= -1
-           pygame.event.post(events.test_event)
+           pygame.event.post(events.test_event)  # DEBUG: POST TEST EVENT
+
+        # If the ball touches the left-side goal
+        if self.rect.left <= 0:
+            pygame.event.post(events.left_goal_scored_in)
+
+        # If the ball touches the right-side goal
+        if self.rect.right >= globals.SCREEN_WIDTH:
+            pygame.event.post(events.right_goal_scored_in)
 
 
         # If the ball hits the goal, reset ball and paddle positions
@@ -39,6 +47,7 @@ class Ball:
             globals.bot.reset_position('left')
             self.restart()
             pygame.time.delay(1000)  # Pause game for 1000 ms
+
 
         # Bounce balls on paddle collision
         if self.rect.colliderect(globals.player) or self.rect.colliderect(globals.bot):
