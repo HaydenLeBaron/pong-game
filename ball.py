@@ -24,7 +24,7 @@ class Ball:
         self.y_speed = y_speed
 
 
-    def move_to_next_frame(self):
+    def move_to_next_frame(self, player1, player2):
         """Calculates the position of the ball as it
         will be drawn next frame."""
 
@@ -46,7 +46,7 @@ class Ball:
             pygame.event.post(events.right_goal_scored_in)
 
         # Bounce balls on paddle collision
-        if self.rect.colliderect(globals.player1) or self.rect.colliderect(globals.player2):
+        if self.rect.colliderect(player1) or self.rect.colliderect(player2):
             self.x_speed *= -1
 
     def restart(self):
