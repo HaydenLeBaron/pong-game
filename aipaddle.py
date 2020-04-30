@@ -21,6 +21,7 @@ class AIPaddle(_Paddle):
         will be drawn next frame."""
 
         # Move bot
+        # TODO: write more sophisticated AI
         if self.rect.top < self.target_ball.rect.y:
             self.rect.top += self.y_speed
         if self.rect.bottom > self.target_ball.rect.y:

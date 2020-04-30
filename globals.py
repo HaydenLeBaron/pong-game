@@ -14,6 +14,7 @@ def init():
     # Objects
     # -----------------------------------
 
+    # TODO: make players non-globals
     global player1;
     global player2;
 
@@ -62,9 +63,10 @@ def init():
 
     # Ball speed is multiplied by this each volley
     global BALL_ACCELERATION; BALL_ACCELERATION = 1
-    global DEF_PADDLE_SPEED; DEF_PADDLE_SPEED = 6
+    global DEF_PADDLE_SPEED; DEF_PADDLE_SPEED = 7
     global game_mode;  # == ('single_player' | 'pvp')
     global POINTS_TO_WIN; POINTS_TO_WIN = 3
+
 
     # Don't configure
     # -----------------------------------
