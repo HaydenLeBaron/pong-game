@@ -40,6 +40,12 @@ def init():
     # -----------------------------------
 
     global DEF_BALL_SPEED; DEF_BALL_SPEED = 9
-    global POINTS_TO_WIN; POINTS_TO_WIN = 5
+    global POINTS_TO_WIN; POINTS_TO_WIN = 2
     global DEF_PADDLE_SPEED; DEF_PADDLE_SPEED = 9
     global game_mode; game_mode = 'pvp'  # == ('single_player' | 'pvp')
+
+
+    # Don't configure
+    # -----------------------------------
+   
+    global click_flag; click_flag = False

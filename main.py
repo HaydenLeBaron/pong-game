@@ -4,6 +4,7 @@
 as well as some helper methods."""
 
 import pygame, sys, random
+from pygame.locals import *  # TODO: do I need this extra import?
 import globals
 import events
 from paddle import _Paddle
@@ -12,24 +13,58 @@ from aipaddle import AIPaddle
 from ball import Ball
 
 
-def main():
-    """The starting point for this program."""
 
-    # ==========================================================
-    # General setup
-    # ==========================================================
 
-    globals.init()
-    events.init()
-    pygame.init()
-    clock = pygame.time.Clock()
-    pygame.display.set_caption('Pong')
 
-    score_font = pygame.font.SysFont('Helvetica',  # Init text drawer
-                                   48, bold=True, italic=False)
-    victory_font = pygame.font.SysFont('Helvetica',  # Init text drawer
-                                       100, bold=True, italic=True)
-    screen = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
+def draw_text(text, font, color, surface, x, y):
+    textobj = font.render(text, 1, color)
+    textrect = textobj.get_rect()
+    textrect.topleft = (x, y)
+    surface.blit(textobj, textrect)
+
+
+
+def main_menu(screen, font, clock, score_font, victory_font):
+    """Launches the main menu."""
+
+    while True:
+
+        screen.fill((0,0,0))
+        draw_text('main menu', font, (255, 255, 255), screen, 20, 20)
+
+        mx, my = pygame.mouse.get_pos()
+
+        button_1 = pygame.Rect(50, 100, 200, 50)
+        button_2 = pygame.Rect(50, 200, 200, 50)
+
+        if button_1.collidepoint((mx, my)):
+            if globals.click_flag:
+                game(screen, clock, score_font, victory_font)
+        if button_2.collidepoint((mx, my)):
+            if globals.click_flag:
+                options(screen, clock, font)
+        pygame.draw.rect(screen, (255, 0, 0), button_1)
+        pygame.draw.rect(screen, (255, 0, 0), button_2)
+
+        globals.click_flag = False
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    globals.click_flag = True
+
+        pygame.display.update()
+        clock.tick(60)
+
+
+def game(screen, clock, score_font, victory_font):
+    """Launches the game."""
 
     # ==========================================================
     # Init game objects
@@ -40,17 +75,17 @@ def main():
                 globals.DEF_BALL_SPEED * random.choice((1, -1)))
     player1 = PlayerPaddle(globals.P1_COLOR_TUPLE, 'right')
 
+    # Create 2nd player paddle on pvp mode, AI paddle on single player mode
     if globals.game_mode == 'pvp':
         player2 = PlayerPaddle(globals.P2_COLOR_TUPLE, 'left')
     else:  # if globals.game_mode == 'single_player'
         player2 = AIPaddle(globals.P2_COLOR_TUPLE, 'left', ball)
 
-   
+
     # ==========================================================
     # Init game flags
     # ==========================================================
 
-    game_on = True
     was_point_scored = False
 
 
@@ -71,7 +106,8 @@ def main():
     # Game loop
     # ==========================================================
 
-    while game_on:
+    running = True
+    while running:
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # Event processing loop
@@ -159,13 +195,13 @@ def main():
                 victory_message_surface = victory_font.render('LEFT SIDE WINS!',
                                                        True,
                                                        player2.color_tuple)
-                game_on = False  # The game loop will not run again
+                running = False  # The game loop will not run again
             if event.type == events.RIGHT_SIDE_WINS_TYPE:
                 print('RIGHT SIDE WINS')
                 victory_message_surface = victory_font.render('RIGHT SIDE WINS!',
                                                        True,
                                                        player1.color_tuple)
-                game_on = False  # The game loop will not run again
+                running = False  # The game loop will not run again
 
 
 
@@ -236,12 +272,59 @@ def main():
             pygame.time.delay(globals.PAUSE_ON_GOAL_MS)  # Pause game for 1000 ms
             was_point_scored = False
 
+
+def options(screen, clock, font):
+    running = True
+    while running:
+        screen.fill((0,0,0))
+
+        draw_text('options', font, (255, 255, 255), screen, 20, 20)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    running = False
+
+        pygame.display.update()
+        clock.tick(60)
+
+
+
+def main():
+    """The starting point for this program."""
+
+    # ==========================================================
+    # General setup
+    # ==========================================================
+
+    globals.init()
+    events.init()
+    pygame.init()
+    clock = pygame.time.Clock()
+    pygame.display.set_caption('pong-game')
+
+    def_font = pygame.font.SysFont(None, 20)
+    score_font = pygame.font.SysFont('Helvetica',  # Init text drawer
+                                   48, bold=True, italic=False)
+    victory_font = pygame.font.SysFont('Helvetica',  # Init text drawer
+                                       100, bold=True, italic=True)
+    screen = pygame.display.set_mode((globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT))
+
+    # ==========================================================
+    # Run game
+    # ==========================================================
+
+    main_menu(screen, def_font, clock, score_font, victory_font)
+
     # ==========================================================
     # Exiting
     # ==========================================================
 
     pygame.time.delay(globals.PAUSE_ON_WIN_MS)
     pygame.quit()
+
 
 
 if __name__ == '__main__':
