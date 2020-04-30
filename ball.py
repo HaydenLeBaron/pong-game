@@ -58,7 +58,7 @@ class Ball:
         # Bounce balls on paddle collision, increase speed of ball and paddles
         if self.rect.colliderect(player1) or self.rect.colliderect(player2):
             self.x_speed *= -1*globals.BALL_ACCELERATION
-            globals.FRAME_RATE *= 1.2
+            globals.FRAME_RATE *= globals.FRAME_RATE_MULTIPLIER
 
         # Change color based on movement direction
         if self.x_speed > 0:

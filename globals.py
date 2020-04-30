@@ -50,6 +50,7 @@ def init():
 
     global DEF_FRAME_RATE; DEF_FRAME_RATE = 60
     global FRAME_RATE; FRAME_RATE = DEF_FRAME_RATE  # TODO: rename so it doesn't look like a constant
+    global FRAME_RATE_MULTIPLIER; FRAME_RATE_MULTIPLIER = 1.1
     global PAUSE_ON_GOAL_MS; PAUSE_ON_GOAL_MS = 1000
     global PAUSE_ON_WIN_MS; PAUSE_ON_WIN_MS = 3000
 
