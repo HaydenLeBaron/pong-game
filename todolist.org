@@ -4,12 +4,15 @@
 *** DONE Add score text
 *** DONE Add victory conditions
 *** DONE Add PVP game mode
-*** TODO Add mode-select menu screen [0/4]
-**** TODO Quick single player (default settings)
-**** TODO Quick local multiplayer (default settings)
-**** WAIT Custom single player (against bot)
-***** Customize settings before start
-***** WAIT Local Multiplayer (WASD vs ARROWS
+*** TODO Add multi-ball mode
+*** TODO Add mode-select menu screen [2/5]
+**** DONE single player mode button
+**** DONE local multiplayer mode button
+**** TODO Options menu [/]
+***** TODO Create graphical menu
+***** TODO Customize settings before start
+*** TODO make better AI
+*** TODO Add volley count at top of screen
 ** Bugs to fix
 *** TODO fix score announcement, victory announcement, and pause timing.
 ** House keeping / Misc

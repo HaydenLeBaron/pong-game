@@ -11,6 +11,11 @@ def init():
     beginning of __main__() (in the main file) to access
     these variables."""
 
+    # Objects
+    # -----------------------------------
+
+    global player1;
+    global player2;
 
     # Colors
     # -----------------------------------
@@ -22,7 +27,8 @@ def init():
     global MIDLINE_COLOR_TUPLE; MIDLINE_COLOR_TUPLE = (240, 240, 240)
     global P1_COLOR_TUPLE; P1_COLOR_TUPLE = (215, 40, 40)
     global P2_COLOR_TUPLE; P2_COLOR_TUPLE = (40, 40, 215)
-
+    global BALL_COLOR_1; BALL_COLOR_1 = pygame.Color('yellow'),
+    global BALL_COLOR_2; BALL_COLOR_2 = pygame.Color('green'),
 
     # Dimensions
     # -----------------------------------
@@ -50,11 +56,13 @@ def init():
     # Other
     # -----------------------------------
 
-    global DEF_BALL_SPEED; DEF_BALL_SPEED = 9
-    global POINTS_TO_WIN; POINTS_TO_WIN = 2
-    global DEF_PADDLE_SPEED; DEF_PADDLE_SPEED = 9
-    global game_mode;  # == ('single_player' | 'pvp')
+    global DEF_BALL_SPEED; DEF_BALL_SPEED = 8
 
+    # Ball speed is multiplied by this each volley
+    global BALL_ACCELERATION; BALL_ACCELERATION = 1.2
+    global DEF_PADDLE_SPEED; DEF_PADDLE_SPEED = 6
+    global game_mode;  # == ('single_player' | 'pvp')
+    global POINTS_TO_WIN; POINTS_TO_WIN = 3
 
     # Don't configure
     # -----------------------------------

@@ -103,15 +103,16 @@ def game(screen, clock, score_font, victory_font):
     # ==========================================================
 
     ball = Ball(30, pygame.Color('yellow'),
-                globals.DEF_BALL_SPEED * random.choice((1, -1)),
-                globals.DEF_BALL_SPEED * random.choice((1, -1)))
-    player1 = PlayerPaddle(globals.P1_COLOR_TUPLE, 'right')
+            globals.DEF_BALL_SPEED * random.choice((1, -1)),
+            globals.DEF_BALL_SPEED * random.choice((1, -1)))
+
+    globals.player1 = PlayerPaddle(globals.P1_COLOR_TUPLE, 'right')
 
     # Create 2nd player paddle on pvp mode, AI paddle on single player mode
     if globals.game_mode == 'pvp':
-        player2 = PlayerPaddle(globals.P2_COLOR_TUPLE, 'left')
+        globals.player2 = PlayerPaddle(globals.P2_COLOR_TUPLE, 'left')
     else:  # if globals.game_mode == 'single_player'
-        player2 = AIPaddle(globals.P2_COLOR_TUPLE, 'left', ball)
+        globals.player2 = AIPaddle(globals.P2_COLOR_TUPLE, 'left', ball)
 
 
     # ==========================================================
@@ -125,12 +126,12 @@ def game(screen, clock, score_font, victory_font):
     # Init score
     # ==========================================================
 
-    player1_score = 0
-    player2_score = 0
-    player1_score_surface = score_font.render(str(player1_score),
-                                           True, player1.color_tuple)
-    player2_score_surface = score_font.render(str(player2_score),
-                                        True, player2.color_tuple)
+    globals.player1_score = 0
+    globals.player2_score = 0
+    globals.player1_score_surface = score_font.render(str(globals.player1_score),
+                                           True, globals.player1.color_tuple)
+    globals.player2_score_surface = score_font.render(str(globals.player2_score),
+                                        True, globals.player2.color_tuple)
     victory_message_surface = None
 
 
@@ -155,9 +156,9 @@ def game(screen, clock, score_font, victory_font):
 
             # Handle victory events
             # ---------------------------------------------
-            if player1_score >= globals.POINTS_TO_WIN:
+            if globals.player1_score >= globals.POINTS_TO_WIN:
                 pygame.event.post(events.right_side_wins)
-            elif player2_score >= globals.POINTS_TO_WIN:
+            elif globals.player2_score >= globals.POINTS_TO_WIN:
                 pygame.event.post(events.left_side_wins)
 
 
@@ -168,56 +169,56 @@ def game(screen, clock, score_font, victory_font):
                 sys.exit()
 
 
-            # Handle player1 input events
+            # Handle globals.player1 input events
             # ---------------------------------------------
             if event.type == pygame.KEYDOWN:  # Keydown controls
                 if event.key == pygame.K_DOWN:
-                    player1.y_speed += globals.DEF_PADDLE_SPEED
+                    globals.player1.y_speed += globals.DEF_PADDLE_SPEED
                 if event.key == pygame.K_UP:
-                    player1.y_speed -= globals.DEF_PADDLE_SPEED
+                    globals.player1.y_speed -= globals.DEF_PADDLE_SPEED
             if event.type == pygame.KEYUP:    # Keyup controls
                 if event.key == pygame.K_DOWN:
-                    player1.y_speed -= globals.DEF_PADDLE_SPEED
+                    globals.player1.y_speed -= globals.DEF_PADDLE_SPEED
                 if event.key == pygame.K_UP:
-                    player1.y_speed += globals.DEF_PADDLE_SPEED
+                    globals.player1.y_speed += globals.DEF_PADDLE_SPEED
 
 
-            # Handle player2 input events (if in a multiplayer mode)
+            # Handle globals.player2 input events (if in a multiplayer mode)
             # ---------------------------------------------
 
             if globals.game_mode == 'pvp':
                 if event.type == pygame.KEYDOWN:  # Keydown controls
                     if event.key == pygame.K_s:
-                        player2.y_speed += globals.DEF_PADDLE_SPEED
+                        globals.player2.y_speed += globals.DEF_PADDLE_SPEED
                     if event.key == pygame.K_w:
-                        player2.y_speed -= globals.DEF_PADDLE_SPEED
+                        globals.player2.y_speed -= globals.DEF_PADDLE_SPEED
                 if event.type == pygame.KEYUP:    # Keyup controls
                     if event.key == pygame.K_s:
-                        player2.y_speed -= globals.DEF_PADDLE_SPEED
+                        globals.player2.y_speed -= globals.DEF_PADDLE_SPEED
                     if event.key == pygame.K_w:
-                        player2.y_speed += globals.DEF_PADDLE_SPEED
+                        globals.player2.y_speed += globals.DEF_PADDLE_SPEED
 
             # Handle goal score events
             # ---------------------------------------------
 
             if event.type == events.LEFT_GOAL_SCORED_IN_TYPE or \
                     event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
-                player1.reset_position('right')
-                player2.reset_position('left')
+                globals.player1.reset_position('right')
+                globals.player2.reset_position('left')
                 ball.restart()
                 was_point_scored = True
                 if event.type == events.LEFT_GOAL_SCORED_IN_TYPE:
                     print('LEFT GOAL SCORED IN')
-                    player1_score += 1
+                    globals.player1_score += 1
                     victory_message_surface = victory_font.render('right\'s point!',
                                                                 True,
-                                                                player1.color_tuple)
+                                                                globals.player1.color_tuple)
                 elif event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
                     print('RIGHT GOAL SCORED IN')
-                    player2_score += 1
+                    globals.player2_score += 1
                     victory_message_surface = victory_font.render('left\'s point!',
                                                                 True,
-                                                                player2.color_tuple)
+                                                                globals.player2.color_tuple)
             else:
                 victory_message_surface = None
 
@@ -226,13 +227,13 @@ def game(screen, clock, score_font, victory_font):
                 print('LEFT SIDE WINS')
                 victory_message_surface = victory_font.render('LEFT SIDE WINS!',
                                                        True,
-                                                       player2.color_tuple)
+                                                       globals.player2.color_tuple)
                 running = False  # The game loop will not run again
             if event.type == events.RIGHT_SIDE_WINS_TYPE:
                 print('RIGHT SIDE WINS')
                 victory_message_surface = victory_font.render('RIGHT SIDE WINS!',
                                                        True,
-                                                       player1.color_tuple)
+                                                       globals.player1.color_tuple)
                 running = False  # The game loop will not run again
 
 
@@ -243,9 +244,9 @@ def game(screen, clock, score_font, victory_font):
 
         # Shift game object locations
         # ---------------------------------------------
-        ball.move_to_next_frame(player1, player2)
-        player1.move_to_next_frame()
-        player2.move_to_next_frame()
+        ball.move_to_next_frame(globals.player1, globals.player2)
+        globals.player1.move_to_next_frame()
+        globals.player2.move_to_next_frame()
 
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -257,11 +258,11 @@ def game(screen, clock, score_font, victory_font):
 
         screen.fill(globals.BG_COLOR)
         pygame.draw.rect(screen,
-                         player1.color_tuple,
-                         player1)
+                         globals.player1.color_tuple,
+                         globals.player1)
         pygame.draw.rect(screen,
-                         player2.color_tuple,
-                         player2)
+                         globals.player2.color_tuple,
+                         globals.player2)
         pygame.draw.aaline(screen,
                            globals.MIDLINE_COLOR_TUPLE,
                         (globals.SCREEN_WIDTH/2, 0),
@@ -274,12 +275,12 @@ def game(screen, clock, score_font, victory_font):
         # Draw score
         # ---------------------------------------------
 
-        player1_score_surface = score_font.render(str(player1_score),
-                                           True, player1.color_tuple)
-        player2_score_surface = score_font.render(str(player2_score),
-                                        True, player2.color_tuple)
-        screen.blit(player1_score_surface, (globals.SCREEN_WIDTH -80, 20))
-        screen.blit(player2_score_surface, (60, 20))
+        globals.player1_score_surface = score_font.render(str(globals.player1_score),
+                                           True, globals.player1.color_tuple)
+        globals.player2_score_surface = score_font.render(str(globals.player2_score),
+                                        True, globals.player2.color_tuple)
+        screen.blit(globals.player1_score_surface, (globals.SCREEN_WIDTH -80, 20))
+        screen.blit(globals.player2_score_surface, (60, 20))
 
         if victory_message_surface is not None:
             screen.blit(victory_message_surface,
@@ -308,6 +309,9 @@ def game(screen, clock, score_font, victory_font):
 def options_menu(screen, clock, font):
     """Opens the options menu"""
 
+    # TODO: add back button (not just escape to go back)
+    # TODO: Add text boxes that allow you to change tweakable global vars
+    
     running = True
     while running:
         screen.fill(globals.BG_COLOR_TUPLE)

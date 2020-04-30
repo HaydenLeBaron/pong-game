@@ -32,6 +32,7 @@ class _Paddle:
     def reset_position(self, side):
         """Resets the position of this _Paddle to the middle of its
         correct $side ('right' | 'left')."""
+
         if side == 'right':
             self.rect.center = (globals.SCREEN_WIDTH - self.width,
                                 globals.SCREEN_HEIGHT/2 - self.height/2)  # Move ball to center
