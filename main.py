@@ -13,38 +13,70 @@ from aipaddle import AIPaddle
 from ball import Ball
 
 
-
-
-
-def draw_text(text, font, color, surface, x, y):
+# TODO: use the draw_centered_text method to announce scores and victory
+def draw_centered_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
     textrect = textobj.get_rect()
-    textrect.topleft = (x, y)
+    textrect.center = (x, y)
     surface.blit(textobj, textrect)
 
-
-
+# TODO: clean up main_menu code with comments
 def main_menu(screen, font, clock, score_font, victory_font):
-    """Launches the main menu."""
+    """Opens the main menu."""
 
     while True:
 
-        screen.fill((0,0,0))
-        draw_text('main menu', font, (255, 255, 255), screen, 20, 20)
+        screen.fill(globals.BG_COLOR_TUPLE)
+        draw_centered_text('~MAIN MENU~', font,
+                  globals.DEF_TXT_COLOR_TUPLE, screen,
+                           globals.SCREEN_WIDTH/2, globals.SCREEN_HEIGHT/8)
 
         mx, my = pygame.mouse.get_pos()
 
-        button_1 = pygame.Rect(50, 100, 200, 50)
-        button_2 = pygame.Rect(50, 200, 200, 50)
+        singleplayer_button = pygame.Rect(40,
+                               globals.SCREEN_HEIGHT*(1/2) - 40,
+                               globals.MENU_BUTTON_WIDTH,
+                               globals.MENU_BUTTON_HEIGHT)
 
-        if button_1.collidepoint((mx, my)):
+        pvp_button = pygame.Rect(40,
+                               globals.SCREEN_HEIGHT*(2/3) - 80,
+                               globals.MENU_BUTTON_WIDTH,
+                               globals.MENU_BUTTON_HEIGHT)
+
+        options_button = pygame.Rect(40,
+                               globals.SCREEN_HEIGHT*(3/4) - 40,
+                               globals.MENU_BUTTON_WIDTH,
+                               globals.MENU_BUTTON_HEIGHT)
+
+        pygame.draw.rect(screen, (0,100,100), singleplayer_button)
+        pygame.draw.rect(screen, (100,0,100), pvp_button)
+        pygame.draw.rect(screen, (100,100,0), options_button)
+
+
+        draw_centered_text('[1 player]', font,
+                  globals.DEF_TXT_COLOR_TUPLE, screen,
+                           singleplayer_button.centerx, singleplayer_button.centery)
+        draw_centered_text('[2 player]', font,
+                  globals.DEF_TXT_COLOR_TUPLE, screen,
+                           pvp_button.centerx, pvp_button.centery)
+
+        draw_centered_text('[options]', font,
+                  globals.DEF_TXT_COLOR_TUPLE, screen,
+                           options_button.centerx, options_button.centery)
+
+        # Handle button clicks
+        if singleplayer_button.collidepoint((mx, my)):
             if globals.click_flag:
+                globals.game_mode = 'single-player'
                 game(screen, clock, score_font, victory_font)
-        if button_2.collidepoint((mx, my)):
+        if pvp_button.collidepoint((mx, my)):
             if globals.click_flag:
-                options(screen, clock, font)
-        pygame.draw.rect(screen, (255, 0, 0), button_1)
-        pygame.draw.rect(screen, (255, 0, 0), button_2)
+                globals.game_mode = 'pvp'
+                game(screen, clock, score_font, victory_font)
+        if options_button.collidepoint((mx, my)):
+            if globals.click_flag:
+                options_menu(screen, clock, font)
+
 
         globals.click_flag = False
         for event in pygame.event.get():
@@ -64,7 +96,7 @@ def main_menu(screen, font, clock, score_font, victory_font):
 
 
 def game(screen, clock, score_font, victory_font):
-    """Launches the game."""
+    """Opens the game."""
 
     # ==========================================================
     # Init game objects
@@ -273,12 +305,17 @@ def game(screen, clock, score_font, victory_font):
             was_point_scored = False
 
 
-def options(screen, clock, font):
+def options_menu(screen, clock, font):
+    """Opens the options menu"""
+
     running = True
     while running:
-        screen.fill((0,0,0))
+        screen.fill(globals.BG_COLOR_TUPLE)
 
-        draw_text('options', font, (255, 255, 255), screen, 20, 20)
+        draw_centered_text('~OPTIONS~', font,
+                           globals.DEF_TXT_COLOR_TUPLE,
+                           screen, globals.SCREEN_WIDTH/2,
+                           globals.SCREEN_HEIGHT/8)
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -305,7 +342,7 @@ def main():
     clock = pygame.time.Clock()
     pygame.display.set_caption('pong-game')
 
-    def_font = pygame.font.SysFont(None, 20)
+    def_font = pygame.font.SysFont(None, 72)
     score_font = pygame.font.SysFont('Helvetica',  # Init text drawer
                                    48, bold=True, italic=False)
     victory_font = pygame.font.SysFont('Helvetica',  # Init text drawer

@@ -14,9 +14,12 @@ def init():
 
     # Colors
     # -----------------------------------
-
-    global BG_COLOR; BG_COLOR = pygame.Color(15, 15, 15)
-    global MIDLINE_COLOR_TUPLE; MIDLINE_COLOR_TUPLE = (255, 255, 255)
+    global DEF_TXT_COLOR_TUPLE; DEF_TXT_COLOR_TUPLE = (240, 240, 240)
+    global BG_COLOR_TUPLE; BG_COLOR_TUPLE = (15, 15, 15)
+    global BG_COLOR; BG_COLOR = pygame.Color(BG_COLOR_TUPLE[0],
+                                             BG_COLOR_TUPLE[1],
+                                             BG_COLOR_TUPLE[2])
+    global MIDLINE_COLOR_TUPLE; MIDLINE_COLOR_TUPLE = (240, 240, 240)
     global P1_COLOR_TUPLE; P1_COLOR_TUPLE = (215, 40, 40)
     global P2_COLOR_TUPLE; P2_COLOR_TUPLE = (40, 40, 215)
 
@@ -26,6 +29,14 @@ def init():
 
     global SCREEN_WIDTH; SCREEN_WIDTH = 1280
     global SCREEN_HEIGHT; SCREEN_HEIGHT = 960
+    global MENU_BUTTON_WIDTH; MENU_BUTTON_WIDTH = SCREEN_WIDTH - 80
+    global MENU_BUTTON_HEIGHT; MENU_BUTTON_HEIGHT = 100
+
+
+    # Positions
+    # -----------------------------------
+    # TODO: create constants for positions to make
+    # graphical elements easily configuarable
 
 
     # Timing
@@ -42,7 +53,7 @@ def init():
     global DEF_BALL_SPEED; DEF_BALL_SPEED = 9
     global POINTS_TO_WIN; POINTS_TO_WIN = 2
     global DEF_PADDLE_SPEED; DEF_PADDLE_SPEED = 9
-    global game_mode; game_mode = 'pvp'  # == ('single_player' | 'pvp')
+    global game_mode;  # == ('single_player' | 'pvp')
 
 
     # Don't configure

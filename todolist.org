@@ -9,7 +9,9 @@
 **** TODO Quick local multiplayer (default settings)
 **** WAIT Custom single player (against bot)
 ***** Customize settings before start
-**** WAIT Local Multiplayer (WASD vs ARROWS)
+***** WAIT Local Multiplayer (WASD vs ARROWS
+** Bugs to fix
+*** TODO fix score announcement, victory announcement, and pause timing.
 ** House keeping / Misc
 *** DONE Comment main method for easier readability
 *** TODO Refactor main method to separate concerns and use helper functions. Make cleaner.
