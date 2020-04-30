@@ -1,4 +1,4 @@
-
+# main.py
 
 """This file contains the starting point for this pong game,
 as well as some helper methods."""
