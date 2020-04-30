@@ -92,7 +92,7 @@ def main_menu(screen, font, clock, score_font, victory_font):
                     globals.click_flag = True
 
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(globals.FRAME_RATE)
 
 
 def game(screen, clock, score_font, victory_font):
@@ -203,6 +203,10 @@ def game(screen, clock, score_font, victory_font):
 
             if event.type == events.LEFT_GOAL_SCORED_IN_TYPE or \
                     event.type == events.RIGHT_GOAL_SCORED_IN_TYPE:
+
+                globals.FRAME_RATE = globals.DEF_FRAME_RATE  # Reset frame rate
+
+                # Reset object positions
                 globals.player1.reset_position('right')
                 globals.player2.reset_position('left')
                 ball.restart()
@@ -329,7 +333,7 @@ def options_menu(screen, clock, font):
                     running = False
 
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(globals.FRAME_RATE)
 
 
 

@@ -48,7 +48,8 @@ def init():
     # Timing
     # -----------------------------------
 
-    global FRAME_RATE; FRAME_RATE = 60
+    global DEF_FRAME_RATE; DEF_FRAME_RATE = 60
+    global FRAME_RATE; FRAME_RATE = DEF_FRAME_RATE  # TODO: rename so it doesn't look like a constant
     global PAUSE_ON_GOAL_MS; PAUSE_ON_GOAL_MS = 1000
     global PAUSE_ON_WIN_MS; PAUSE_ON_WIN_MS = 3000
 
@@ -56,10 +57,10 @@ def init():
     # Other
     # -----------------------------------
 
-    global DEF_BALL_SPEED; DEF_BALL_SPEED = 8
+    global DEF_BALL_SPEED; DEF_BALL_SPEED = 5
 
     # Ball speed is multiplied by this each volley
-    global BALL_ACCELERATION; BALL_ACCELERATION = 1.2
+    global BALL_ACCELERATION; BALL_ACCELERATION = 1
     global DEF_PADDLE_SPEED; DEF_PADDLE_SPEED = 6
     global game_mode;  # == ('single_player' | 'pvp')
     global POINTS_TO_WIN; POINTS_TO_WIN = 3
