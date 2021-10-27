@@ -3,10 +3,12 @@
 Author: Hayden LeBaron
 Date: 04/30/2020
 
+<img width="887" alt="Screen Shot 2021-10-26 at 8 19 16 PM" src="https://user-images.githubusercontent.com/43355097/138988841-4acf889f-b7ef-480e-a079-2a4ac1fd27c0.png">
+
+
 ## About
 
-This is a simple pong game that I made to practice Python and learn
-pygame.
+A simple pong game for 1 or 2 players.
 
 ## How to Run
 
