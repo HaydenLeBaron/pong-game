@@ -5,7 +5,7 @@ Date: 04/30/2020
 
 ## About
 
-This is a simple pong game that I made to practice python and learn
+This is a simple pong game that I made to practice Python and learn
 pygame.
 
 ## How to Run
