@@ -32,8 +32,7 @@ Thanks to *Clear Code*!
 
 This project was originally based on his tutorial at
 https://www.youtube.com/watch?v=Qf3-aDXG8q4, 
-although most of the original code has been replaced or refactored
-and many new features added.
+although nearly all of the original code has been rewritten by now, and new features added.
 
 The code from the video can be found on GitHub in the repo
 *clear-code-projects / Pong_in_Pygame*
